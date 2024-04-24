@@ -127,7 +127,7 @@ async deleteTask(id: string) {
     }
   }
   async isUserDisponible(employeeId: string, date: string): Promise<boolean> {
-    const tasks = await this.taskModel.find({ employeeAffected: employeeId }).exec();
+    const tasks = await this.taskModel.find({},{ employeeAffected: employeeId }).exec();
     let taskCount = 0;
     
     for (const task of tasks) {

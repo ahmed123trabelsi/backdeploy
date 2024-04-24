@@ -36,12 +36,11 @@ export class MissionService {
   // }
   async assignUserToMission(missionId: string, userEmail: string): Promise<Mission> {
     const user = await this.UserModel.findOne({ email: userEmail }).exec();    const mission = await this.missionModel.findById(missionId);
-   
+    console.log(userEmail);
+    console.log(mission);
     const employee =await this.UserModel.findById(user._id);
-    console.log('employee',employee)
-    console.log('user',user)
     const   datemission =  mission.startDate;
-   
+    console.log(datemission);
     const isdisponible =await this.TaskService.isUserDisponible(user._id,datemission);
     console.log("isdisponible",isdisponible);
     const isdisponiblemission=await this.isUserAvailableForMission(user._id,datemission) ;
