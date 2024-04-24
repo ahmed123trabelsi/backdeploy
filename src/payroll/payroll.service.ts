@@ -218,11 +218,12 @@ async getPayrollWithPaymentPolicy(payrollId: string): Promise<{ payroll: any, de
 }
     
 
-     @Cron('0 */2 * * * *')      
-      async handleCron() {
-        await this.schedulePayrollGeneration();
+     //  @Cron('0 */2 * * * *')      
+     // async handleCron() {
+       // await this.schedulePayrollGeneration();
         
-      }
+     // }  
+      @Cron('0 */2 * * * *')   
       async schedulePayrollGeneration() {
         const paymentPolicy = await this.PayPolicyModel.findOne().sort({ createdAt: -1 });
         if (!paymentPolicy || !paymentPolicy.paymentDay) {
@@ -243,7 +244,7 @@ async getPayrollWithPaymentPolicy(payrollId: string): Promise<{ payroll: any, de
             // Calculer les dates de début et de fin
             const startDate = new Date(targetDate);
             // startDate.setDate(startDate.getDate() - 30); // Soustraire 30 jours
-            startDate.setDate(startDate.getDate() - 24); 
+            startDate.setDate(startDate.getDate() - 30); 
             const endDate = new Date(targetDate);
             console.log('startDate   endDate',startDate,endDate)
 

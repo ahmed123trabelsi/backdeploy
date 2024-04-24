@@ -77,10 +77,10 @@ export class PayrollController {
             return { message: error.message };
         }
     }
-  async triggerCron(): Promise<string> {
+/*   async triggerCron(): Promise<string> {
     await this.payrollService.handleCron();
     return 'CRON déclenché avec succès.';
-  }
+  } */
   @Post('generate')
   async generatePayroll() {
     try {

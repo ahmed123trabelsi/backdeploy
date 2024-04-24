@@ -22,6 +22,7 @@ import { MailerService } from 'src/auth/Mail.service';
 import { Roleservice } from 'src/auth/Role.service';
 import { RoleSchema } from 'src/auth/Shemas/Roles.Shema';
 import { CongeService } from 'src/conges/Conge.service';
+import { ScheduleModule } from '@nestjs/schedule';
 
 
 @Module({
@@ -38,7 +39,7 @@ import { CongeService } from 'src/conges/Conge.service';
       { name: 'Role', schema: RoleSchema },
 
       
-    ]),
+    ]),ScheduleModule.forRoot()
   ],
   controllers: [PostController,PaymentPolicyController, PayrollController],
   providers: [ PostService,PaymentPolicyService,PayrollService,AttendanceService,AuthService,JwtService,MailerService,Roleservice,CongeService],
