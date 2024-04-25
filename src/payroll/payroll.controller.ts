@@ -123,7 +123,7 @@ export class PayrollController {
   }
 
 
-  @Get('/withUsers')
+ /*  @Get('/withUsers')
   async getUsersWithPayrolls(): Promise<any> {
     try {
       const User = await this.payrollService.getUsersWithPayrolls();
@@ -133,7 +133,7 @@ export class PayrollController {
       console.error('Error retrieving payrolls with users and poste:', error);
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-  }
+  } */
   @Get('getPayrollWithPayP/:id')
     async getPayrollWithPaymentPolicy(@Param('id') payrollId: string): Promise<{  payroll: any, deductions: number[] }> {
       try {
