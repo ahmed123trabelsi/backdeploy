@@ -61,35 +61,27 @@ export class PayrollService {
     
       async getAllPayrollsWithUsersAndPoste(): Promise<any[]> {
         try {
-          const payrolle = await this.PayrollModel
-            .find()
-            .populate({
-              path: 'user',
-              select: 'firstName lastName email Matricule',
-              populate: { path: 'poste', 
-              select: 'PostName' ,},
-            }).lean() // Convertit les résultats en objets JavaScript simples
-            .select({
-              _id: 1,
-              netSalary: 1,
-              'user.firstName': "",
-              'user.lastName': "",
-              'user.email': "",
-              'user.Matricule': "",
-              'user.poste.PostName': "",
-            })
-            .exec();
+            const payrolle = await this.PayrollModel
+                .find()
+                .populate({
+                    path: 'user',
+                    select: 'firstName lastName email Matricule', // Select only the fields from the user document
+                })
+                .populate({
+                    path: 'user.poste', // Populate the poste field of the user document
+                    select: 'PostName',
+                })
+                .lean()
+                .exec();
     
-            
-           
-           console.log('Payrolls',payrolle) 
-      
-          return payrolle;
+            console.log('Payrolls', payrolle);
+    
+            return payrolle;
         } catch (error) {
-          console.error('Error retrieving payrolls with users and poste:', error);
-          throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+            console.error('Error retrieving payrolls with users and poste:', error);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-      }
+    }
 
 
       async createPayroll(createPayrollDto: CreatePayrollDto): Promise<any> {
