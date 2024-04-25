@@ -66,17 +66,30 @@ export class PayrollService {
                 .populate({
                     path: 'user',
                     select: 'firstName lastName email Matricule', // Select only the fields from the user document
-                })
-                .populate({
-                    path: 'user.poste', // Populate the poste field of the user document
-                    select: 'PostName',
+                    populate: {
+                        path: 'poste', // Populate the poste field of the user document
+                        select: 'PostName',
+                    }
                 })
                 .lean()
                 .exec();
     
             console.log('Payrolls', payrolle);
     
-            return payrolle;
+            return payrolle.map(payroll => ({
+                _id: payroll._id,
+                netSalary: payroll.netSalary,
+                user: {
+                    _id: payroll.user._id,
+                    firstName: payroll.user.firstName,
+                    lastName: payroll.user.lastName,
+                    email: payroll.user.email,
+                    Matricule: payroll.user.Matricule,
+                    poste: {
+                        PostName: payroll.user.poste.PostName
+                    }
+                }
+            }));
         } catch (error) {
             console.error('Error retrieving payrolls with users and poste:', error);
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
