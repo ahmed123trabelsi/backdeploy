@@ -158,7 +158,7 @@ async uploadPhoto1(@UploadedFile() file: Express.Multer.File, @Param('userId') u
   if (!user) {
     throw new NotFoundException('User not found');
   }
-  const filePath = 'http://localhost:3000/auth/pictures/' + file.filename;
+  const filePath = 'https://backdeploy-7y83.onrender.com/auth/pictures/' + file.filename;
   user.profileImage = filePath;
   
   return user.save();
