@@ -81,11 +81,13 @@ private readonly logger = new ConsoleLogger(ApplicationController.name);
   async generateCv(@Body() cvData: CvData, @Res() res: Response): Promise<void> {
     // console.log('URL de l\'image:', cvData.selectedImage);
     console.log('Données reçues depuis le frontend:', cvData); 
-    const browser = await puppeteer.launch({
-     
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
-    
+    const executablePath = `C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe`;
+    try {
+      console.log(`Launching Chrome from: ${executablePath}`);
+      const browser = await puppeteer.launch({
+          executablePath,
+          args: ['--no-sandbox', '--disable-setuid-sandbox']
+      });
       const page = await browser.newPage();
       
       const htmlContent = `
@@ -206,6 +208,10 @@ private readonly logger = new ConsoleLogger(ApplicationController.name);
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Disposition', 'attachment; filename="cv.pdf"');
       res.status(HttpStatus.OK).send(pdfBuffer);
+    } catch (error) {
+      console.error('Failed to launch browser:', error);
+      res.status(500).send('Failed to generate PDF');
+  }
   }
 }
 
