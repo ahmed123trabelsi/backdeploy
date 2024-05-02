@@ -81,7 +81,8 @@ private readonly logger = new ConsoleLogger(ApplicationController.name);
   async generateCv(@Body() cvData: CvData, @Res() res: Response): Promise<void> {
     // console.log('URL de l\'image:', cvData.selectedImage);
     console.log('Données reçues depuis le frontend:', cvData); 
-    const browser = await puppeteer.launch();
+  /*   const browser = await puppeteer.launch(); */
+  const browser = await puppeteer.launch({ executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' });
       const page = await browser.newPage();
       
       const htmlContent = `
