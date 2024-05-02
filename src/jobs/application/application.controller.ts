@@ -82,9 +82,10 @@ private readonly logger = new ConsoleLogger(ApplicationController.name);
     // console.log('URL de l\'image:', cvData.selectedImage);
     console.log('Données reçues depuis le frontend:', cvData); 
     const browser = await puppeteer.launch({
-      executablePath: 'C:\Program Files\Google\Chrome\Application\chrome.exe',
+      executablePath: `C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe`,
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
+    
       const page = await browser.newPage();
       
       const htmlContent = `
