@@ -161,6 +161,7 @@ private readonly logger = new ConsoleLogger(ApplicationController.name);
           <div class="container">
               <div class="contact-info">
                   <h3>Coordonnées</h3>
+                  <p>Nom: ${cvData.nom}</p>
                   <p>Téléphone: ${cvData.phone1}</p>
                   <p>Adresse: ${cvData.Adresse}</p>
                   <p>Email: ${cvData.email}</p>
